@@ -10,6 +10,10 @@ import StoreKit
 
 class PurchaseController
 {
+#if os(visionOS)
+	@Environment(\.purchase) var purchaseAction
+#endif
+	
 	func makePurchase(product: Product, quantity: Int = 1, finishAutomatically: Bool = true, appAccountToken: UUID? = nil, simulatesAskToBuyInSandbox: Bool = false) async throws -> Purchase
 	{
 		var options: Set<Product.PurchaseOption> = []
@@ -20,8 +24,11 @@ class PurchaseController
 		{
 			options.insert(Product.PurchaseOption.appAccountToken(token))
 		}
-		
+#if !os(visionOS)
 		let result = try await product.purchase(options: options)
+#else
+		let result = try await purchaseAction(product)
+#endif
 		
 		switch result
 		{
