@@ -51,6 +51,7 @@ public class Mercato {
 		try await purchaseController.makePurchase(product: product, quantity: quantity, finishAutomatically: finishAutomatically, appAccountToken: appAccountToken, simulatesAskToBuyInSandbox: simulatesAskToBuyInSandbox)
 	}
 	
+#if !os(macOS)	
 	@available(watchOS, unavailable)
 	@available(tvOS, unavailable)
 	@available(macOS, unavailable)
@@ -75,6 +76,7 @@ public class Mercato {
 			throw error
 		}
 	}
+#endif
 	
 	deinit {
 		updateListenerTask?.cancel()
@@ -114,6 +116,7 @@ extension Mercato
 		try await AppStore.sync()
 	}
 	
+#if !os(macOS)	
 	@available(watchOS, unavailable)
 	@available(tvOS, unavailable)
 	@available(macOS, unavailable)
@@ -138,6 +141,7 @@ extension Mercato
 	{
 		try await AppStore.showManageSubscriptions(in: scene)
 	}
+#endif
 	
 	public static func activeSubscriptions(onlyRenewable: Bool = true) async throws -> [Transaction]
 	{
