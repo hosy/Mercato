@@ -53,6 +53,7 @@ public class Mercato {
 	
 	@available(watchOS, unavailable)
 	@available(tvOS, unavailable)
+	@available(macOS, unavailable)
 	func beginRefundProcess(for productID: String, in scene: UIWindowScene) async throws
 	{
 		guard case .verified(let transaction) = await Transaction.latest(for: productID) else { throw MercatoError.failedVerification }
@@ -115,6 +116,7 @@ extension Mercato
 	
 	@available(watchOS, unavailable)
 	@available(tvOS, unavailable)
+	@available(macOS, unavailable)
 	public static func beginRefundProcess(for product: Product, in scene: UIWindowScene) async throws
 	{
 		try await shared.beginRefundProcess(for: product.id, in: scene)
@@ -122,6 +124,7 @@ extension Mercato
 	
 	@available(watchOS, unavailable)
 	@available(tvOS, unavailable)
+	@available(macOS, unavailable)
 	public static func beginRefundProcess(for productID: String, in scene: UIWindowScene) async throws
 	{
 		try await shared.beginRefundProcess(for: productID, in: scene)
